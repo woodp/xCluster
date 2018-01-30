@@ -29,7 +29,7 @@ class xFOCluster {
     [DscProperty()]
     [string] $StaticAddress
 
-    [xCluster] Get() {
+    [xFOCluster] Get() {
 
         Write-Verbose -Message 'Start retriving Failover Cluster info.';
 

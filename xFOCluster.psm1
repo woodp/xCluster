@@ -21,7 +21,7 @@ class xFOCluster {
     List of cluster node names, separated by commas, on which to create the cluster. If this parameter is not specified, then a one node cluster is created on the local physical computer
     #>
     [DscProperty(Mandatory)]
-    [string] $Nodes;
+    [string[]] $Nodes;
 
     <#
     Specifies one or more static addresses to use, separated by commas

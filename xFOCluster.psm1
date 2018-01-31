@@ -57,7 +57,7 @@ class xFOCluster {
 
         if ($this.Ensure -eq 'Present') {
             Write-Verbose -Message 'Checking for presence of Failover Cluser.';
-            if ($Cluster -ne $null) {
+            if ($Cluster -eq $null) {
                 return $false;
             }
             return $true;
@@ -65,7 +65,7 @@ class xFOCluster {
 
         if ($this.Ensure -eq 'Absent') {
             Write-Verbose -Message 'Checking for absence of Failover Cluster.';
-            if ($Cluster -ne $null) {
+            if ($Cluster -eq $null) {
                 return $true;
             }
             return $false;
@@ -79,16 +79,16 @@ class xFOCluster {
         if ($this.Ensure -eq [Ensure]::Present) {
             Write-Verbose -Message 'Creating Cluster.'
             if($this.StaticAddress -eq $null){
-                New-Cluster -Name $this:ClusterName -Node $this:Nodes -NoStorage -Force -ErrorAction Stop
+                New-Cluster -Name $this.ClusterName -Node $this.Nodes -NoStorage -Force -ErrorAction Stop
             } else {
-                New-Cluster -Name $this:ClusterName -Node $this:Nodes -StaticAddress $this.StaticAddress -NoStorage -Force -ErrorAction Stop
+                New-Cluster -Name $this.ClusterName -Node $this.Nodes -StaticAddress $this.StaticAddress -NoStorage -Force -ErrorAction Stop
             }
         }
 
         if ($this.Ensure -eq [Ensure]::Absent) {
             Write-Verbose -Message 'Removing Cluster.'
             try {
-                Get-Cluster -Name $this:ClusterName | Remove-Cluster -Force -CleanupAD
+                Get-Cluster -Name $this.ClusterName | Remove-Cluster -Force -CleanupAD
             }
             catch { }
         }
